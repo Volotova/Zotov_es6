@@ -1,1 +1,23 @@
-
+{
+  "positions" : [ {
+    "id" : "/Events_ClientHangup",
+    "x" : 2990,
+    "y" : 398
+  }, {
+    "id" : "/Events_BotHangup",
+    "x" : 3007,
+    "y" : 991
+  }, {
+    "id" : "/Autoresponder",
+    "x" : -1750,
+    "y" : -758
+  }, {
+    "id" : "/NotConnectedTechnical",
+    "x" : -1344,
+    "y" : -738
+  }, {
+    "id" : "/NotConnected",
+    "x" : -934,
+    "y" : -742
+  } ]
+}
