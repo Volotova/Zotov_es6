@@ -1,1 +1,31 @@
+Start:
+  tts: Привет
+  audio: PMI_CCO_E_Start_UPD_280125.wav
+AdultSmoker:
+  tts: "Скажите, являетесь ли вы сейчас совершеннолетним потребителем табака или никотинсодержащей продукции?"
+  audio: PMI_CC_Prospects_AdultSmoker_UPD_011024.wav
+AdultSmokerCatchAll:
+  -
+    tts: "Простите, не поняла. Мне нужно уточнить, являетесь ли вы совершеннолетним потребителем табака или никотинсодержащей продукции?"
+    audio: PMI_CC_Prospects_AdultSmoker_LocalCatchAll_1.wav
+  -
+    tts: "Снова не расслышала. Уточните, пожалуйста, вы являетесь совершеннолетним потребителем табака или никотинсодержащей продукции?"
+    audio: PMI_CC_Prospects_AdultSmoker_LocalCatchAll_2.wav
+BrandAnswer:
+    type: brand
+    IQOS:
+        tts: "Реплика IQOS"
+        audio: IQOS.wav
 
+WhenCanIRecall:
+  tts: "Я перезвоню вам позже. Подскажите, когда вам будет удобно?"
+  audio: PMI_CC_Prospects_CallBackLater.wav
+CallBackSpecial:
+  tts: "Агааа, хорошо. Я перезвоню вам позже. Всего доброго!"
+  audio: PMI_EOL_6gl.2_CallBackLater_JustCallBack.wav
+DontCallBack:
+  tts: "Спасибо, я вас поняла. Всего доброго!"
+  audio: PMI_Adopt_DontCallEarly.wav
+DoYouHaveTime:
+  tts: "Амм... Наш с вами разговор правда займет не больше пары минут. Может быть, вам будет удобно сейчас уделить мне время?"
+  audio: PMI_Adopt_CallBackSpecial_No.wav

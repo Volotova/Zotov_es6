@@ -1,1 +1,46 @@
+caSuccessCall:
+  request:
+    method: post
+    # TODO добавить возможность указывать просто url, даже если в методе указаны baseURL и url
+    baseURL: "https://bot.jaicp.com/chatapi"
+    url: "/${CHATAPI.token}"
+    data:
+      clientId: "testqwerty"
+      query: "привет, брат"
+    headers:
+      Content-Type: "application/json"
+  response:
+    data:
+      data:
+        replies:
+          - text: "Привет! Я тут️."
+    status: 200
+    statusText: Ok
 
+caError400:
+  request:
+    method: post
+    baseURL: "https://bot.jaicp.com/chatapi"
+    url: "/${CHATAPI.token}"
+    data:
+      clientId: "testqwerty"
+    headers:
+      Content-Type: "application/json"
+  response:
+    error: true
+    status: 400
+    statusText: "Bad Request – что-то не так в запросе"
+
+caError500:
+  request:
+    method: post
+    baseURL: "https://bot.jaicp.com/chatapi"
+    url: "/${CHATAPI.token}"
+    data:
+      clientId: "testqwerty"
+    headers:
+      Content-Type: "application/json"
+  response:
+    error: true
+    status: 500
+    statusText: "Internal Server Error – сервер сломался"
