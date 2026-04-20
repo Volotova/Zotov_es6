@@ -1,3 +1,5 @@
+import { Logger } from 'jaicp-sdk';
+
 // Функция получения причины неперехода
 async function getEndReasonResult(metricsData) {
     
