@@ -15,35 +15,12 @@ theme: /Redial
                 Analytics.saveValue("Удобно ли говорить (2я попытка) Текст", $parseTree.text);
                 HangUp.noRedialHangUp();
             } else if (Utils.counter() <= 1) {
-                // проверка того, нет ли в изначальном запросе времени перезвона
-                let redial = await Redial.detectRecallRequest();
-                if (redial?.datetime && redial?.datetime !== "overLimit") {
-                    $session.redialObj = redial;
-                    go("/Redial/CallBackLater/CallBackSpecial");
-                } else { 
-                    Answer.say("WhenCanIRecall");
-                }
+                Answer.say("DoYouHaveTime");
             } else {
                 Answer.say("CallBackSpecial");
                 Analytics.setCallStatus("Нет времени");
                 HangUp.redialHangUp();
             }
-
-        state: CallBackSpecial
-            q: *
-            q: * $callbackDateTime *
-            q: * $DateTime *
-            scriptEs6:
-                let redial = await $session.redialObj || await Redial.detectRecallRequest();
-                log(`redial: ${toPrettyString(redial)}`);
-                Answer.say("CallBackSpecial");
-                Analytics.setCallStatus("Нет времени");
-                if (!redial?.overLimit && redial?.datetime) {
-                    Redial.setRedial(redial.datetime);
-                    HangUp.hangUp();
-                } else {
-                    HangUp.redialHangUp();
-                }
 
         state: SpeakNow
             q: * ($yes/$agree) *

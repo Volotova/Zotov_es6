@@ -1,3 +1,15 @@
+require: patterns.sc
+    module = sys.zb-common
+
+require: ../es5/redial/dateTime.sc
+
+require: common.js
+    module = sys.zb-common
+require: ../es5/redial/redial.js
+require: ../es5/redial/redial.sc
+require: ../es5/redial/paramsDefault.yaml
+    var = $ParamsDefault
+
 require: ./redial.js
     type = scriptEs6
     name = Redial
@@ -15,14 +27,7 @@ theme: /Redial
                 Analytics.saveValue("Удобно ли говорить (2я попытка) Текст", $parseTree.text);
                 HangUp.noRedialHangUp();
             } else if (Utils.counter() <= 1) {
-                // проверка того, нет ли в изначальном запросе времени перезвона
-                let redial = await Redial.detectRecallRequest();
-                if (redial?.datetime && redial?.datetime !== "overLimit") {
-                    $session.redialObj = redial;
-                    go("/Redial/CallBackLater/CallBackSpecial");
-                } else { 
-                    Answer.say("WhenCanIRecall");
-                }
+                Answer.say("WhenCanIRecall");
             } else {
                 Answer.say("CallBackSpecial");
                 Analytics.setCallStatus("Нет времени");
@@ -30,19 +35,21 @@ theme: /Redial
             }
 
         state: CallBackSpecial
-            q: *
-            q: * $callbackDateTime *
+            q!: $stateCallbackSpecial
+            q!: * $callbackDateTime *
             q: * $DateTime *
+            script:
+                $session.timeSettings = setRedialTime();
             scriptEs6:
-                let redial = await $session.redialObj || await Redial.detectRecallRequest();
-                log(`redial: ${toPrettyString(redial)}`);
-                Answer.say("CallBackSpecial");
-                Analytics.setCallStatus("Нет времени");
-                if (!redial?.overLimit && redial?.datetime) {
-                    Redial.setRedial(redial.datetime);
+                if (!$session.timeSettings || $session.timeSettings === "Call date is too far") {
+                    Answer.say("CallBackSpecial");
+                    Analytics.setCallStatus("Нет времени");
                     HangUp.hangUp();
                 } else {
-                    HangUp.redialHangUp();
+                    Redial.setRedial(await $session.timeSettings);
+                    Answer.say("CallBackSpecial");
+                    Analytics.setCallStatus("Нет времени");
+                    HangUp.hangUp();
                 }
 
         state: SpeakNow
