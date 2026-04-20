@@ -1,5 +1,3 @@
-import { Logger } from 'jaicp-sdk';
-
 // Функция получения причины неперехода
 async function getEndReasonResult(metricsData) {
     
@@ -141,16 +139,10 @@ export default {
     // Работа со встроенной аналитикой
 
     setCallStatus(callStatus) {
-        const oldStatus = $context.session.callStatus;
-        $context.session.callStatus = callStatus;
+        const oldStatus = $.session.callStatus;
+        $.session.callStatus = callStatus;
         Logger.info(`Changed call status from ${oldStatus} to ${callStatus}`);
     },
-    
-    // setCallStatus(callStatus) {
-    //     const oldStatus = $.session.callStatus;
-    //     $.session.callStatus = callStatus;
-    //     Logger.info(`Changed call status from ${oldStatus} to ${callStatus}`);
-    // },
     
     setCallbackStatus() {
         this.setCallStatus(`CALLBACK ${$.session.callStatus || ""}`);
