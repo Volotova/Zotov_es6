@@ -137,7 +137,7 @@ export default {
     },
     
     // Работа со встроенной аналитикой
-    
+
     setCallStatus(callStatus) {
         const oldStatus = $.session.callStatus;
         $.session.callStatus = callStatus;
